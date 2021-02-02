@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <title>SafiAir || Acceuil</title>
+  </head>
+  <body class="bg-light">
+    <!-- START HEADER -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-red">
+        <div class="container">
+          <a class="navbar-brand lobster-font logo" href="./recherche.ejs">SafiAir</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contactez-Nous</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- END HEADER -->
+    <div class="blank"></div>
+    <!-- START MAIN -->
+    <main>
+      <div class="container">
+        <!-- START STEPS -->
+        <div class="steps text-center">
+          <div class="first-steps">
+            <div class="d-flex text-blue font-weight-light">
+              <span class="step-arrow">>></span>
+              <span class="step-info">Ma recherche</span>
+            </div>
+            <div class="d-flex text-blue font-weight-light">
+              <span class="step-arrow">>></span>
+              <span class="step-info">Mon voyage</span>
+            </div>
+          </div>
+          <div class="last-steps">
+            <div class="d-flex text-red font-weight-bold">
+              <span class="step-arrow">>></span>
+              <span class="step-info">Mes coordonnées</span>
+            </div>
+            <div class="d-flex font-weight-light">
+              <span class="text-muted step-arrow">>></span>
+              <span class="text-muted step-info">Ma confirmation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END STEPS -->
+      <div class="blank"></div>
+      
+      <!-- START FORM INFO -->
+      <div class="container">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" onclick="typeVoyage(this)" name="flexRadioDefault" id="Aller-Retour" checked>
+          <label class="form-check-label" for="flexRadioDefault1">
+            Aller-Retour
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" onclick="typeVoyage(this)" type="radio" name="flexRadioDefault" id="Aller-Simple" >
+          <label class="form-check-label" for="flexRadioDefault2">
+            Aller-Simple
+          </label>
+        </div>
+        <hr>
+        <form action="/confirmation" method="POST">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="hidden" name="id_flight" value="<%=id%>">
+              <label for="Nom">nom et prenom</label>
+              <input type="text" class="form-control" id="Nom" placeholder="Nom et prenom" name="FullName" />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="numeroTel">Numero telephone</label>
+              <input type="text" class="form-control" id="numeroTel" placeholder="numero Telephone" name="numeroTel" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Email" name="email" />
+          </div>
+          <div class="form-group">
+            <label for="cartebancaire">N° passport</label>
+            <input
+              type="text"
+              class="form-control"
+              id="passport"
+              placeholder="N° passport"
+              name="numeroPassport"
+            />
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <p>departing</p>
+            <input type="date" id="departing" required name="departingDate" placeholder="departing" class="form-control">
+          </div>
+          <div class="form-group col-md-6" id="returning-date">
+            <p>returning</p>
+            <input type="date"  id="returning" required name="returningDate" placeholder="returning" class="form-control">
+          </div>
+          </div>
+          <div class="form-row">
+          <div class="form-group col-md-6">
+            <input type="number" placeholder="Adults(+18)" id="adults" required name="Adult" class="form-control ">
+          </div>
+            <div class="form-group col-md-6">
+            <input type="number"  placeholder="Children(2-17)" id="children" required name="children" class="form-control">
+            </div>
+          </div>
+            <div class="form-group">
+            <select name="travel_class" id="travel_class" required class="form-control">
+                <optgroup Label="TRAVEL CLASSES"></optgroup>
+                <option value="First Class">First Class</option>
+                <option value="Bussness Class">Bussness Class</option>
+                <option value="Econemy Class">Econemy Class</option>
+            </select>
+        </div>
+        <div class="form-group">
+        <input type="hidden" name="price"  id="price" value="<%=price%>">
+      </div>
+          <button type="submit" id="reserve" class="btn btn-primary">Réserver</button>
+        </form>
+      </div>
+      <!-- END FORM INFO -->
+    </main>
+
+    <!-- END MAIN -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+  <script src="/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

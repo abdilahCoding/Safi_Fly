@@ -1,0 +1,11 @@
+$font-baloo: "Baloo Thambi 2", cursive;
+$font-lobster: "Lobster", cursive;
+$font-raleway: "Raleway", sans-serif;
+$color-red: #ef2e41;
+$color-blue: #4a20aa;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

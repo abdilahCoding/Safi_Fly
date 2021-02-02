@@ -1,0 +1,24 @@
+.logo {
+  font-size: 30px;
+}
+
+hr {
+  height: 2px;
+  width: 35%;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 30px;
+  }
+  hr {
+    height: 1.2px;
+    width: 50%;
+  }
+}
+
+@media (max-width: 400px) {
+    h1 {
+      font-size: 25px;
+    }
+  }

@@ -1,0 +1,49 @@
+body {
+  font-family: $font-baloo;
+  min-width: 320px;
+  margin-bottom: 100px;
+}
+
+.blank {
+  height: 100px;
+}
+
+.text-red {
+  color: $color-red;
+}
+
+.text-blue {
+  color: $color-blue;
+}
+
+.bg-red {
+  background-color: $color-red;
+}
+
+.bg-blue {
+  background-color: $color-blue;
+}
+
+@media (max-width: 1000px) {
+  .blank {
+    height: 80px;
+  }
+}
+
+@media (max-width: 800px) {
+  .blank {
+    height: 65px;
+  }
+}
+
+@media (max-width: 600px) {
+  .blank {
+    height: 50px;
+  }
+}
+
+@media (max-width: 400px) {
+    .blank {
+      height: 35px;
+    }
+  }

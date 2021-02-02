@@ -1,0 +1,78 @@
+.voyage-item {
+  overflow: hidden;
+
+  margin: 0 !important;
+  span {
+    font-size: 13px;
+  }
+}
+
+.difference-time {
+  font-size: 20px;
+}
+
+.difference-line {
+  width: 80%;
+  margin: auto;
+  height: 5px;
+}
+
+.ville-depart,
+.ville-arrivee {
+  font-size: 20px;
+}
+
+.prix-voyage {
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .prix-voyage {
+    border: none !important;
+    flex-direction: row;
+    h4 {
+      border-right: #dee2e6 !important;
+      border-right-width: 1px !important;
+      border-right-style: solid !important;
+      border-right-color: rgb(222, 226, 230) !important;
+      padding-right: 12px;
+    }
+    a {
+        margin-left: 12px;
+
+    }
+  }
+  .info-voyage {
+    border-bottom: #dee2e6 !important;
+    border-bottom-width: 1px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: rgb(222, 226, 230) !important;
+    .ville-depart,
+    .ville-arrivee {
+      font-size: 15px;
+    }
+    div:nth-child(1),
+    div:nth-child(3) {
+      width: 35% !important;
+    }
+    div:nth-child(2) {
+      width: 30% !important;
+      & > div {
+        width: 80% !important;
+        font-size: 18px;
+      }
+    }
+    .vol-time {
+        font-size: 15px;
+    }
+  }
+}
+@media (max-width: 400px) {
+  .info-voyage {
+    div:nth-child(2) {
+      & > div {
+        font-size: 14px;
+      }
+    }
+  }
+}

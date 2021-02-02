@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>SafiAir || Acceuil</title>
+  </head>
+  <body>
+    <!-- START HEADER -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-red">
+        <div class="container">
+          <a class="navbar-brand lobster-font logo" href="/search">SafiAir</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contactez-Nous</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="blank"></div>
+    <!-- END HEADER -->
+    <!-- START MAIN -->
+    <main>
+      <div class="container">
+        <!-- START STEPS ONE -->
+        <div class="steps text-center">
+          <div class="first-steps">
+            <div class="d-flex text-red font-weight-bold">
+              <span class="step-arrow">>></span>
+              <span class="step-info">Ma recherche</span>
+            </div>
+            <div class="d-flex text-muted font-weight-light">
+              <span class="step-arrow">>></span>
+              <span class="step-info">Mon voyage</span>
+            </div>
+          </div>
+          <div class="last-steps">
+            <div class="d-flex text-muted font-weight-light">
+              <span class="text-muted step-arrow">>></span>
+              <span class="text-muted step-info">Mes coordonnées</span>
+            </div>
+            <div class="d-flex text-muted font-weight-light">
+              <span class="step-arrow">>></span>
+              <span class="step-info">Ma confirmation</span>
+            </div>
+          </div>
+        </div>
+        <div class="blank"></div>
+        <!-- END STEPS ONE -->
+        <!-- START CHERCHE -->
+        <h1 class="text-center text-red">Je prépare mon voyage</h1>
+        <hr class="bg-blue" />
+        <div class="blank"></div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" onclick="typeVoyage(this)" name="flexRadioDefault" id="Aller-Retour" checked>
+          <label class="form-check-label" for="flexRadioDefault1">
+            Aller-Retour
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" onclick="typeVoyage(this)" type="radio" name="flexRadioDefault" id="Aller-Simple" >
+          <label class="form-check-label" for="flexRadioDefault2">
+            Aller-Simple
+          </label>
+        </div>
+        
+        <form class="row" action="/vole" method="post">
+          <div class="form-group col-lg-3">
+            <select class="form-control" id="sel1" name="from" required>
+              <option value="">Ma point de départ</option>
+              <% for(prod of from){%>
+                <option><%= prod.flyingFrom%></option>
+                <% } %>
+            </select>
+          </div>
+          <div class="form-group col-lg-3">
+            <select class="form-control" id="sel1" name="to" required>
+              <option value="">Ma point d'arrivée</option>
+              <% for(prod of from){%>
+                <option><%= prod.flyingTo%></option>
+                <% } %>
+            </select>
+          </div>
+          <div class="form-group col-lg-3">
+            <input type="date" class="form-control" name="datevol"  onchange="enable()"  id="depart" />
+          </div>
+          <div class="form-group col-lg-3">
+            <input type="date" class="form-control" name="datevol" onchange="change()" id="return"  />
+          </div>
+          <div class="col-lg-3">
+            <button type="submit" class="btn btn-primary">Chercher</button>
+          </div>
+        </form>
+        <!-- END CHERCHE -->
+      </div>
+    </main>
+    <!-- END MAIN -->
+    <script>
+
+      window.onload=()=>{
+    
+        document.getElementById('return').disabled = true;
+    
+    
+    
+      }
+      function typeVoyage(voyage){
+        console.log("this kkkk" + voyage.id);
+        if(voyage.id=="Aller-Simple"){
+          document.getElementById('return').style.display="none";
+        }else if(voyage.id=="Aller-Retour"){
+          document.getElementById('return').style.display="block";
+        }
+      }
+      function change(){
+      
+          let dapartDate = document.getElementById('depart').value;
+         let returnDate = document.getElementById('return').value;
+          console.log(dapartDate,returnDate);
+    
+          if(dapartDate >= returnDate){
+    
+    
+            alert("return Date must be grether than daparting Date ");
+         document.getElementById('return').value="";
+          }
+          
+    
+         }
+         
+    
+         
+    
+         function enable(){
+      
+    
+        document.getElementById('return').disabled = false;
+    
+     }
+     
+</script>    
