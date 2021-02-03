@@ -47,7 +47,6 @@ $(document).ready(function() {
 
 });
 function typeVoyage(voyage){
-    console.log("this kkkk" + voyage.id);
     if(voyage.id=="Aller-Simple"){
       document.getElementById('returning').disabled=true;
     }else if(voyage.id=="Aller-Retour"){
@@ -55,3 +54,15 @@ function typeVoyage(voyage){
      
     }
   }
+
+  //Ajax
+  function showResult(str) {
+      var xhttp= new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("show").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open( "GET", "vole?id="+str, true );
+      xhttp.send();
+}

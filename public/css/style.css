@@ -29,7 +29,8 @@ body {
 }
 
 .text-red {
-  color: #ef2e41;
+    background-color: #25c790;
+
 }
 
 .text-blue {
@@ -37,7 +38,7 @@ body {
 }
 
 .bg-red {
-  background-color: #ef2e41;
+  background-color: #25c790;
 }
 
 .bg-blue {

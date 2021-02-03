@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <title>SafiAir || Acceuil</title>
+  </head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-red">
+          <div class="container">
+            <a class="navbar-brand lobster-font logo" href="./admin">SafiAir</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Admine</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <!-- END HEADER -->
+    <div class="blank"></div>
+    <!-- START MAIN -->
+      <!-- END STEPS -->
+      <div class="blank"></div>
+      
+      <!-- START FORM INFO -->
+      <div class="container">
+        <form action="/modifier" method="POST">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="hidden" name="id" value="<%=id%>">
+              <label for="Nom">Flying From :</label>
+              <input type="text" class="form-control" id="Nom" placeholder="Flying From" name="flyingFrom" value="<%=flyingFrom %>" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Nom">Flying To :</label>
+                <input type="text" class="form-control" id="Nom" placeholder="Flying To" name="flyingTo" value="<%=flyingTo%>" />
+              </div>
+              
+              </div>
+              <div class="form-group col-md-12">
+                <label for="Nom">Seats :</label>
+                <input type="number" class="form-control" id="Nom" placeholder="Flying To" value="<%=seats%>" name="seats" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="Nom">Price :</label>
+                <input type="text" class="form-control" id="Nom" placeholder="Flying To" name="Price" value="<%=Price%>" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="Nom">depart Time :</label>
+                <input type="text" class="form-control" id="Nom" placeholder="Depart Time" name="depart_time" value="<%=depart_time%>" />
+              </div>
+              
+            <div class="form-group col-md-6">
+              <label for="numeroTel">Return Time</label>
+              <input type="text" class="form-control" id="time" placeholder="Return Time" name="arrive_time" value="<%=arrive_time%>" />
+            </div>
+          </div>
+          <div class="form-group col-md-6 text-center">
+          <button type="submit" id="modifier" class="btn btn-primary">Modifier</button>
+        </div>
+        </form>
+      </div>
+      <!-- END FORM INFO -->
+    </main>
+
+         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+         <script src="/script.js"></script>
+             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+           </body>
+         </html>

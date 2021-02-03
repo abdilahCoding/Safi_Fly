@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <title>SafiAir || Acceuil</title>
+  </head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-red">
+          <div class="container">
+            <a class="navbar-brand lobster-font logo" href="./admin">SafiAir</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Admine</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <!-- END HEADER -->
+    <div class="blank"></div>
+    <!-- START MAIN -->
+      <main>
+      <div class="voyage bg-white rounded mb-4">
+        <% 
+        if(rows.length > 0){
+          for(fly of rows){%>
+        <div class="row rounded text-center voyage-item w-100">
+          <div class="col-md-9 text-blue d-flex p-0 info-voyage">
+            <div class="w-25 h-100 flex-center flex-column">
+              <span class="text-red">Départ</span>
+              <h3 class="font-weight-bold text-blue ville-depart"><%=fly.flyingFrom%></h3>
+              <h4 class="vol-time"><%=fly.dapart_time%></h4>
+            </div>
+            <div class="w-25 h-100 flex-center flex-column border-right border-left">
+              <div class="difference-time"><%= parseInt(fly.dapart_time +fly.arrive_time) %> <b>heure</b></div>
+              <div class="bg-red difference-line m-1"></div>
+            </div>
+            <div class="w-25 h-100">
+              <span class="text-red">Arrivé</span>
+              <h3 class="font-weight-bold text-blue ville-arrivee"><%=fly.flyingTo%></h3>
+              <h4 class="vol-time"><%=fly.arrive_time%></h4>
+            </div>
+            <div class="w-25 h-100">
+                <span class="text-red">Seats</span>
+                <h3 class="font-weight-bold text-blue ville-arrivee"><%=fly.seats%></h3>
+                
+              </div>
+              <div class="w-25 h-100">
+                <span class="text-red">Price</span>
+                <h3 class="font-weight-bold text-blue ville-arrivee"><%=fly.Price%> DH</h3>
+                
+              </div>
+          </div>
+          <div class="col-md-3 p-0 text-center flex-center border-left prix-voyage py-2">
+            <a href="/delete/<%=fly.id %>" type="button" class="btn btn-primary">Supprimer </a>
+            <button type="button" class="btn btn-link" id="showEscale"  >
+           <a href="/save/<%=fly.id %>"> Modifier</a>
+            </button>
+            
+          </div>
+        </div>
+        <%
+    }
+
+}else{%>
+        <div class="col-md-9 text-blue d-flex p-0 info-voyage">
+            <div class="w-50 h-100 flex-center flex-column mx-auto">
+              
+              <h3 class="font-weight-bold text-blue ville-depart">Sorry Don't find this flying</h3>
+
+            </div>
+     <% }
+        %>
+      </div>
+     
+         
+       </div>
+        </div>
+        </main>
+         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+         <script src="/script.js"></script>
+             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+           </body>
+         </html>

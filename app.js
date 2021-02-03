@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, "public", "js")));
  
 // Routes
 app.use(require('./route/router'))
-
+app.use(require('./route/AdminRoute/route'))
 
 // 404 handler
 app.use((req, res, next) => {

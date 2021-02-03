@@ -4,43 +4,10 @@ const route = express.Router();
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+const conn = require("./connection/connect");
+console.log("vvv" + conn);
 var  txtWrite=[];
 
-/*
-var mail = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'ayoub.elbouinany99@gmail.com',
-      pass: 'Ayoub123@'
-    }
-  });
-  var mailOptions = {
-    from: 'ayoub.elbouinany99@gmail.com',
-    to: 'kamal@gmail.com',
-    subject: 'Sending Email via Node.js',
-    text: 'That was easy!'
-  };
-  
-  mail.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
-  */
-// ======== Connected NodeJS via MySQL========
-const conn = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'vol'
-});
-
-conn.connect(function (error) {
-    if (error) console.log("error");
-    else console.log('Connected! :)')
-});
 
 
 
@@ -50,21 +17,24 @@ conn.connect(function (error) {
   route.get('/search', (req, res) => {
    
     const sql = "SELECT DISTINCT flyingFrom,flyingTo FROM `flights_list`";
+    const sql1="SELECT * FROM `flights_list` ";
     const query = conn.query(sql, (err, data) => {
+         conn.query(sql1, (err, data1) => {
         if (err) throw err;
         res.render('recherche', {
-            from: data
+            from: data,
+            list:data1
         });
 
-    })
-     
+    });
+});
 });
 
-route.get('/vole', (req, res) => {
+/*route.get('/vole', (req, res) => {
    
     let {from,to} = req.body;
        
-    const sql = "SELECT * FROM flights_list WHERE flyingFrom= '"+ from  +"' AND flyingTo= '"+ to +"' ";
+    const sql = "SELECT * FROM flights_list ";
     const query = conn.query(sql, (err, data) => {
         if (err) throw err;
         res.render('voyages', {
@@ -76,19 +46,55 @@ route.get('/vole', (req, res) => {
 
 
      });
+     */
+    /* route.get('/vole', function(req, res) {
+
+        var q = req.query.id;
+
+        const sql = "SELECT * FROM escales WHERE id_fly=?";
+        console.log("Searching for " +q);
+        conn.query(sql, q, (err, data) => {
+            if (err) throw err;
+            res.render('voyages',{esc:data
+            ,
+        vol:[]});
+        console.log("hhh" + JSON.stringify(data));
+   });
+   
+});
+*/
+     route.get('/vole/:id/:flyingFrom/:flyingTo/:dapart_time', (req, res) => {
+     let {id,flyingFrom,flyingTo,dapart_time} = req.params;
+       console.log("id" + id);
+     const sql = "SELECT * FROM escales WHERE id_fly=" + id;
+   const  sql1 = "SELECT flights_list.* FROM flights_list  WHERE flyingFrom=? AND flyingTo=? AND seats>0  AND cast(dapart_time AS SIGNED)>=? ";
+     conn.query(sql, (err, data) => {
+       conn.query(sql1,[flyingFrom,flyingTo,dapart_time], (err, data1) => {
+         if (err) throw err;
+         res.render('voyages', {
+             esc: data,
+             vol:data1
+         });
+     });
+ 
+     });
+    });
 
      route.post('/vole', (req, res) => {
-
-        let {from,to} = req.body;
-       
-    const sql = "SELECT * FROM flights_list WHERE flyingFrom= '"+ from  +"' AND flyingTo= '"+ to +"' AND seats>0";
-    const query = conn.query(sql, (err, data) => {
+//"SELECT * FROM flights_list f,escales e WHERE flyingFrom=? AND flyingTo=? AND seats>0 AND departingDate=? AND cast(dapart_time AS SIGNED)>=? AND f.id=e.id_fly GROUP BY f.id ";
+        let {from,to,departingDate,dapart_time} = req.body;
+        var escale=[];
+    const sql = "SELECT flights_list.* FROM flights_list  WHERE flyingFrom=? AND flyingTo=? AND seats>0 AND departingDate=? AND cast(dapart_time AS SIGNED)>=? ";
+    const query = conn.query(sql,[from,to,departingDate,dapart_time], (err, data) => {
+       // conn.query(sql,data.id, (err, data) => {
         if (err) throw err;
         res.render('voyages', {
-            vol: data
+            vol: data,
+           esc:[]
         });
-
-    })
+    
+        
+    });
 
 
 
@@ -102,30 +108,82 @@ var {id} = req.params;
     console.log("price " + price + " id " + id);
 resp.render("reservation",{id:id,price:price});
 });
+
 route.post("/confirmation",function(req,resp){
     var {FullName,numeroTel,email,numeroPassport,departingDate,returningDate,Adult,children,travel_class,price,id_flight}=req.body;
   
 var sql="INSERT INTO reservation( `FullName`, `numeroTel`, `email`, `numeroPassport`, `departingDate`, `returningDate`, `Adult`, `children`, `travel_class`, `price`, `id_flight`) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+    const sql1 = "SELECT * FROM flights_list WHERE flights_list.id=?" ;
+
 conn.query(sql,[FullName,numeroTel,email,numeroPassport,departingDate,returningDate,Adult,children,travel_class,price,parseInt(id_flight)],function(error,data){
+    conn.query(sql1,parseInt(id_flight),function(error,data1){
     if (error) throw error;
     resp.render("confirmation",{
-        name:FullName
+        name:FullName ,
+        numeroTel: numeroTel,
+        email:email, 
+        numeroPassport:numeroPassport,
+        Adult:Adult,
+        children:children,
+        travel_class:travel_class,
+        price:price,
+        id_flight:data1[0].id,
+        flyingFrom: data1[0].flyingFrom,
+        flyingTo:data1[0].flyingTo,
+            });
     });
-var txtRow="[<<< WELCOME >>> \n Nom et prenom : "+FullName + "\n numero Telephone : " + numeroTel + " \n email :" + email + "\n numero Passport : " + numeroPassport + "\n departing Date :" + departingDate + " \n returning Date : " + returningDate + " \n Adult :" + Adult + "\n children : " + children + "\n travel_class : " + travel_class + "\n price : " + price + "\n ]";
+        var txtRow="[<<< WELCOME >>> \n Nom et prenom : "+FullName + "\n numero Telephone : " + numeroTel + " \n email :" + email + "\n numero Passport : " + numeroPassport + "\n departing Date :" + departingDate + " \n returning Date : " + returningDate + " \n Adult :" + Adult + "\n children : " + children + "\n travel_class : " + travel_class + "\n price : " + price + "\n ]";
       txtWrite.push(txtRow) ;  
   fs.writeFile('reservation.txt', JSON.stringify(txtWrite,null,5), (err) => { if (err) throw err;
         console.log("File Write")
         });
-        var sql="update flights_list set seats = flights_list.seats-(? + ?)  where flights_list.id = ?";
 
-        conn.query(sql,[Adult,children,parseInt(id_flight)],function(err,data){
-            if (error) throw error;
-            console.log("Updating");
-        });
 });
 });
+//Send Email 
+route.post("/sendEmail",function(req,resp){
+    var {fullName,numeroTel,Email,id_flight,flyingFrom,flyingTo,Adult,children,travel_class,Price}=req.body;
+    var mail = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'abdilahelaidii@gmail.com',
+          pass: 'dbkdkuofwtthkpsp'
+        }
+      });
+     
+    var mailOptions = {
+        from: 'abdilahelaidii@gmail.com',
+        to: Email,
+        subject: 'Gestion Des Voles',
+        text: "Bonjour Mr :" + fullName + " \n"
+               + "Numero telephone : " + numeroTel + "\n"
+               + "flying From : " + flyingFrom + "\n"
+               + "flying To " + flyingTo + "\n" 
+               + "Seats : => Adult : "+ Adult + " , Children : " + children  + "\n"
+               + " travel_class : " + travel_class + "\n "
+               +   "Price : " + Price + "DHs \n" 
+               + "Email " + Email
+    };
+      
+      mail.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+          var sql="update flights_list set seats = flights_list.seats-(? + ?)  where flights_list.id = ?";
+
+      conn.query(sql,[Adult,children,parseInt(id_flight)],function(err,data){
+          if (error) throw error;
+          console.log("Updating");
+      });
+          resp.redirect("/fin");
+        }
+      });
+      
+});
+
+//
 route.get("/fin",function(req,resp){
-
     resp.render("fin");
 });
 

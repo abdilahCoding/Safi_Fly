@@ -89,26 +89,34 @@
         
         <form class="row" action="/vole" method="post">
           <div class="form-group col-lg-3">
-            <select class="form-control" id="sel1" name="from" required>
+            <input type="text" class="form-control" id="sel1" list="from" name="from" required>
+            <datalist id="from">
               <option value="">Ma point de départ</option>
               <% for(prod of from){%>
                 <option><%= prod.flyingFrom%></option>
                 <% } %>
-            </select>
+            </datalist>
           </div>
           <div class="form-group col-lg-3">
-            <select class="form-control" id="sel1" name="to" required>
-              <option value="">Ma point d'arrivée</option>
+            <input type="text" class="form-control" list="to" id="sel1" name="to" required>
+            <datalist id="to">
               <% for(prod of from){%>
                 <option><%= prod.flyingTo%></option>
                 <% } %>
+            </datalist>
+          </div>
+          <div class="form-group col-lg-3">
+            <input type="date" class="form-control" name="departingDate" min="2021-01-10" max="2021-12-31"  onchange="enable()"  id="depart" />
+          </div>
+          <div class="form-group col-lg-3">
+            <input type="date" class="form-control" name="datevol" min="2021-01-12" max="2021-12-31" onchange="change()" id="return"  />
+          </div>
+          <div class="form-group col-lg-3">
+            <select id="selectDate" name="dapart_time">
+              <% for(fly of list){%>
+                <option><%= parseInt(fly.dapart_time ) %>h00min</option>
+                <% } %>
             </select>
-          </div>
-          <div class="form-group col-lg-3">
-            <input type="date" class="form-control" name="datevol"  onchange="enable()"  id="depart" />
-          </div>
-          <div class="form-group col-lg-3">
-            <input type="date" class="form-control" name="datevol" onchange="change()" id="return"  />
           </div>
           <div class="col-lg-3">
             <button type="submit" class="btn btn-primary">Chercher</button>
