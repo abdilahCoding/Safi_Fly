@@ -30,55 +30,23 @@ var  txtWrite=[];
 });
 });
 
-/*route.get('/vole', (req, res) => {
-   
-    let {from,to} = req.body;
-       
-    const sql = "SELECT * FROM flights_list ";
-    const query = conn.query(sql, (err, data) => {
-        if (err) throw err;
-        res.render('voyages', {
-            vol: data
-        });
 
-    })
+     route.get('/vole/:id', function(req, res) {
 
-
-
-     });
-     */
-    /* route.get('/vole', function(req, res) {
-
-        var q = req.query.id;
+        var q = req.params.id;
 
         const sql = "SELECT * FROM escales WHERE id_fly=?";
         console.log("Searching for " +q);
         conn.query(sql, q, (err, data) => {
             if (err) throw err;
-            res.render('voyages',{esc:data
-            ,
-        vol:[]});
+         
+          res.send(data);
         console.log("hhh" + JSON.stringify(data));
    });
    
 });
-*/
-     route.get('/vole/:id/:flyingFrom/:flyingTo/:dapart_time', (req, res) => {
-     let {id,flyingFrom,flyingTo,dapart_time} = req.params;
-       console.log("id" + id);
-     const sql = "SELECT * FROM escales WHERE id_fly=" + id;
-   const  sql1 = "SELECT flights_list.* FROM flights_list  WHERE flyingFrom=? AND flyingTo=? AND seats>0  AND cast(dapart_time AS SIGNED)>=? ";
-     conn.query(sql, (err, data) => {
-       conn.query(sql1,[flyingFrom,flyingTo,dapart_time], (err, data1) => {
-         if (err) throw err;
-         res.render('voyages', {
-             esc: data,
-             vol:data1
-         });
-     });
- 
-     });
-    });
+
+    
 
      route.post('/vole', (req, res) => {
 //"SELECT * FROM flights_list f,escales e WHERE flyingFrom=? AND flyingTo=? AND seats>0 AND departingDate=? AND cast(dapart_time AS SIGNED)>=? AND f.id=e.id_fly GROUP BY f.id ";

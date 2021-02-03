@@ -55,14 +55,33 @@ function typeVoyage(voyage){
     }
   }
 
+$("#showEscale").click(function(){
+  $("#show").click();
+})
+
   //Ajax
-  function showResult(str) {
+  function showResult(id) {
       var xhttp= new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
+      var modelBody=document.getElementById("getModel");
+     // console.log("modelBody" + modelBody );
+     xhttp.onreadystatechange  = function() {
         if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("show").innerHTML = this.responseText;
+        var  escale=JSON.parse(xhttp.responseText);
+        modelBody.innerHTML="hello";
+
+        var keyl;
+        if(escale.length>0){
+        for(keyl in escale){
+         modelBody.innerHTML +="   <div class='row rounded text-center voyage-item w-100'> <div class='col-md-12 text-blue d-flex p-0 info-voyage'><div class='w-100 h-100 flex-center flex-column'>";
+       
+        
+          modelBody.innerHTML  +="<span class='text-red'>Premier escale</span><h3 class='font-weight-bold text-blue ville-depart'>" + escale[keyl].stopover_name + "</h3> <div> <span class='text-red'>Heures :</span><h4 class='vol-time'>" + escale[keyl].hours + " h </h4></div> </div></div></div><hr>";
         }
-      };
-      xhttp.open( "GET", "vole?id="+str, true );
+        }else{
+          modelBody.innerHTML  +=" <h3 class='font-weight-bold text-blue ville-depart'>Sorry Not find escals </div>";
+        }
+        }
+    }
+      xhttp.open( "GET", `http://127.0.0.1:8000/vole/${id}`, true );
       xhttp.send();
-}
+  }

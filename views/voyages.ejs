@@ -95,10 +95,7 @@
             <div class="col-md-3 p-0 text-center flex-center border-left prix-voyage py-2">
               <h4 class="text-red"><%=fly.Price %>  <b>DH </b></h4>
               <a href="/reservation/<%=fly.id %>/<%=fly.Price %>" type="button" class="btn btn-primary">Réserver</a>
-              <button type="button" class="btn btn-link" id="showEscale"  >
-             <a href="/vole/<%=fly.id %>/<%=fly.flyingFrom%>/<%=fly.flyingTo%>/<%=fly.dapart_time%>"> les escales</a>
-              </button>
-              
+               <div class="mx-auto"><button type="button" name="id" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" onclick="showResult(this.value)"  id="show" value="<%=fly.id%>"  >show </button></div> 
             
             </div>
           </div>
@@ -115,7 +112,7 @@
        <% }
           %>
         </div>
-        <div class="mx-auto"><button type="button" name="id" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" id="show" value="<%=fly.id%>"  >show </button></div> 
+       
       </div>
     
       
@@ -129,35 +126,10 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <%if(esc.length>0){%>
-              <%for(escale of esc){%>
-              <div class="row rounded text-center voyage-item w-100">
-                <div class="col-md-12 text-blue d-flex p-0 info-voyage">
-                  <div class="w-100 h-100 flex-center flex-column">
-                    <span class="text-red">Premier escale</span>
-                    <h3 class="font-weight-bold text-blue ville-depart"><%=escale.stopover_name%></h3>
-                    <div>
-                      <span class="text-red">Heures :</span>
-                    <h4 class="vol-time"><%=escale.hours%> h </h4>
-                  </div>
-                  </div>
-                </div>
-              </div>
-              <hr>   
-              <% } 
-            }else{
-           %>
-            
-    <div class="col-md-9 text-blue d-flex p-0 info-voyage">
-                  <div class="w-50 h-100 flex-center flex-column mx-auto">
-                    
-                    <h3 class="font-weight-bold text-blue ville-depart">Sorry Don't find escale</h3>
-                      <h4 class="font-weight-bold text-blue ville-depart">Choisir une flight</h4>
-                  </div>
-           
-            </div>
-           <%}%>
+            <div class="modal-body" id="getModel">
+              
+    
+       
             </div>
         
             <div class="modal-footer">
